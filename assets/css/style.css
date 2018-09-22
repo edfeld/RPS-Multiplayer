@@ -1,0 +1,27 @@
+body {
+    background-color: aquamarine;
+}
+
+#game-data {
+    height: 350px;
+}
+
+#name-input {
+    width: 80px;
+}
+
+#player-one {
+    height: 250px;
+}
+
+#player-two {
+    height: 250px;
+}
+
+.jumbotron {
+    height: 50px !important;
+}
+
+.display-3 {
+    line-height: 0;
+}
