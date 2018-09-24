@@ -32,25 +32,48 @@
             </p> -->
           </div>
         </div>
-        <div class="row">
-          <div id="player-one" class="col-md-4 bg-white mx-3">
-            <form>
-              <div class="form-group row">
-                <label for="player1-name">Player One: Name</label>
-                <input class="form-control" id="player1-name" type="text">
+        <div class="row justify-content-center">
+            
+              <div class="mb-2 text-center">
+                  <form class="form-inline">
+                      <div class="form-group mb-2">
+                        <label for="player1-name mr-2">Player Name</label>
+                        <input class="ml-3 form-control id="player1-name" type="text">
+                      </div>
+                      <div class="form-group mx-sm-3 mb-2">
+                        <button class="btn btn-primary" id="player1Join" type="submit">Join Game</button>
+                      </div>
+                    </form>
               </div>
-              <button class="btn btn-primary" id="player1Join" type="submit">Join Game</button>
-            </form>
+              <!-- <form class="form-inline">
+                  <div class="form-group mb-2">
+                    <label for="staticEmail2" class="sr-only">Email</label>
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
+                  </div>
+                  <div class="form-group mx-sm-3 mb-2">
+                    <label for="inputPassword2" class="sr-only">Password</label>
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                  </div>
+                  <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                </form> -->
+            
+        </div>
+        <div class="row">
+          
+          <div id="player-one" class="col-md-4 bg-white mx-3">
+            <div>Player One Name: <span id="playerOneName">Ted</span></div>
+            <div class="item" id="P1Rock" select="r">Rock</div>
+            <div class="item" id="P1Paper" select="p">Paper</div>
+            <div class="item" id="P1Scissors" select="s">Scissors</div>
+            
           </div>
           <div id="game-data"class="col-md-3  bg-white mx-3 border border-dark rounded">Game Status</div>
           <div id="player-two" class="col-md-4 bg-white ml-3">
-            <form>
-              <div class="form-group row">
-                <label for="player2-name">Player Two: Name</label>
-                <input class="form-control" id="player2-name" type="text">
-              </div>
-              <button class="btn btn-primary" id="player2Join" type="submit">Join Game</button>
-            </form>
+              <div>Player Two Name: <span id="playerTwoName">Fred</span></div>
+              <div class="item" id="P2Rock" select="r">Rock</div>
+              <div class="item" id="P2Paper" select="p">Paper</div>
+              <div class="item" id="P2Scissors" select="s">Scissors</div>
+            
           </div>
         </div>
 
