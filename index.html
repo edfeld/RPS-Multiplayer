@@ -33,15 +33,15 @@
           </div>
         </div>
         <div class="row justify-content-center">
-            
+              <!-- Player registration-->
               <div class="mb-2 text-center">
                   <form class="form-inline">
                       <div class="form-group mb-2">
-                        <label for="player1-name mr-2">Player Name</label>
-                        <input class="ml-3 form-control id="player1-name" type="text">
+                        <label for="player-name mr-2">Player Name</label>
+                        <input class="ml-3 form-control" id="player-name" type="text">
                       </div>
                       <div class="form-group mx-sm-3 mb-2">
-                        <button class="btn btn-primary" id="player1Join" type="submit">Join Game</button>
+                        <button class="btn btn-primary" id="playerJoin" type="submit">Join Game</button>
                       </div>
                     </form>
               </div>
@@ -61,15 +61,19 @@
         <div class="row">
           
           <div id="player-one" class="col-md-4 bg-white mx-3">
-            <div>Player One Name: <span id="playerOneName">Ted</span></div>
+            <div>Player One Name: <span id="playerOneName" class="text-warning"></span></div>
             <div class="item" id="P1Rock" select="r">Rock</div>
             <div class="item" id="P1Paper" select="p">Paper</div>
             <div class="item" id="P1Scissors" select="s">Scissors</div>
             
           </div>
-          <div id="game-data"class="col-md-3  bg-white mx-3 border border-dark rounded">Game Status</div>
+          <!-- game status div-->
+          <div id="game-data"class="col-md-3  bg-white mx-3 border border-dark rounded"><p>Game Status</p>
+          <div id="game-status" class="text-center"></div>
+          </div>
+          <!-- Player two div -->
           <div id="player-two" class="col-md-4 bg-white ml-3">
-              <div>Player Two Name: <span id="playerTwoName">Fred</span></div>
+              <div>Player Two Name: <span id="playerTwoName" class="text-warning"></span></div>
               <div class="item" id="P2Rock" select="r">Rock</div>
               <div class="item" id="P2Paper" select="p">Paper</div>
               <div class="item" id="P2Scissors" select="s">Scissors</div>
