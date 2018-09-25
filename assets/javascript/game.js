@@ -76,6 +76,7 @@ $(document).ready(function() {
             var time = setTimeout(() => {
                 sortie();
             }, 2000);
+            // sortie();
         }
 
 
@@ -194,8 +195,11 @@ $(document).ready(function() {
         // Here is RPS logic:
         
         // This logic determines the outcome of the game (win/loss/tie), and increments the appropriate number
-        
-        if ((playerOneChoice === "r") && (playerTwoChoice === "s")) {
+        if (typeof playerOneChoice === "undefined" || typeof playerTwoChoice === "undefined") {
+            console.log("199 playerOneChoice: ", playerOneChoice);
+            console.log("199 playerTwoChoice: ", playerTwoChoice);
+
+        } else if ((playerOneChoice === "r") && (playerTwoChoice === "s")) {
             updatePlayerWins(1);
             updatePlayerLosses(2);
             $("#game-status").text("Player One Wins!")
@@ -406,12 +410,8 @@ $(document).ready(function() {
             playerNumber: playerObject.playerNumber,
             wins: playerObject.wins
         }; 
-        let childKey = localStorage.getItem("playerKey");
+        // let childKey = localStorage.getItem("playerKey");
         var updates = {};
-        updates['/player/' + playerObject.key] = playerData;
-        
-        // database.ref().child('player').push(updates);
-        firebase.database().ref().update(updates);   
 
         if (player.playerNumber === 1) {
             database.ref().update({
@@ -422,6 +422,11 @@ $(document).ready(function() {
                 turn: 3
             });
         }
+        updates['/player/' + playerObject.key] = playerData;
+        
+        // database.ref().child('player').push(updates);
+        firebase.database().ref().update(updates);   
+
 
     });
 
