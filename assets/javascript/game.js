@@ -24,22 +24,29 @@ $(document).ready(function() {
     
         if(snapshot.child("player").exists()) {
             console.log("26 ", snapshot.val().player);
-            
+
+            var childKey;
+            var childData;
             database.ref().once('value', function(snapshot) {
                 console.log("30 ", snapshot.child("player").numChildren());
                 snapshot.child("player").forEach(function(childSnapshot) {
-                var childKey = childSnapshot.key;
-                var childData = childSnapshot.val();
+                childKey = childSnapshot.key;
+                childData = childSnapshot.val();
                
                 console.log("32 childKey", childKey);
                 console.log("33 ", childData);
                 console.log("34 playerName: ", childData.playerName);
                 });
             });
-            if (childData.playerNumber === 1) {
-                $("#playerONeName").txt(childData.playerName);
-            } 
-            
+
+            if (typeof childData.playerNumber === undefined ) {
+                console.log("40 No ChildData", typeof childData.playerNumber);
+            } else if (childData.playerNumber === 1) {
+                $("#playerOneName").text(childData.playerName);
+            } else 
+            if (childData.playerNumber === 2) {
+                $("#playerTwoName").text(childData.playerName);
+            }
             var myArray = database.ref().child("player").orderByChild('playerNumber');
             console.log("40 ", myArray);
             console.log("41 ", typeof myArray);
@@ -390,7 +397,7 @@ $(document).ready(function() {
                                     .orderByChild("playerNumber")
                                     .equalTo("1")
                                     .limitToFirst(1);
-                                    
+        // console.log("395 newPlayerKey:", newPlayerKey.val());                                    
         console.log("287 playerObject: ", playerObject);
         var playerData = {
             choice: selectionItem,
