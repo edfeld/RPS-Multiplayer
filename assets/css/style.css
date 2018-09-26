@@ -3,7 +3,7 @@ body {
 }
 
 #game-data {
-    height: 350px;
+    height: 250px;
 }
 
 #name-input {
@@ -25,3 +25,15 @@ body {
 .display-3 {
     line-height: 0;
 }
+
+#chat-output {
+    width: 350px !important;
+    background-color: white;
+    height: 150px;
+    overflow-y: scroll;
+}
+#chat-parent {
+    width: 100%;
+    background-color: lightgray;
+}
+

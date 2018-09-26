@@ -19,6 +19,15 @@ $(document).ready(function() {
 
     const database = firebase.database();
 
+    database.ref().on('value', function(snapshot){
+        if(snapshot.child("chat").exists()) { 
+            console.log("24: ", snapshot.child("chat").val());
+            $("#chat-output").empty();
+            // chatter = $("<p>").text(snapshot.child("chat").val())
+            $("#chat-output").html(snapshot.child("chat").val());
+        }
+    });
+
     database.ref().on("value", function(snapshot) {
         console.log(snapshot.child());
         
@@ -260,9 +269,6 @@ $(document).ready(function() {
             
     }
 
-    function updatePlayerChoice ( playerNumber, choice) {
-
-    }
 
     function updatePlayer(playerObj) {
         console.log("228 playerObj: ", playerObj);
@@ -299,6 +305,42 @@ $(document).ready(function() {
         
         // database.ref().child('player').push(updates);
         return firebase.database().ref().update(updates);
+
+    }
+
+    function addToChat (chatText) {
+        let chatOuput;
+        database.ref().once('value', function(snapshot){
+            if(snapshot.child("chat").exists()) { 
+                console.log("315: ", snapshot.child("chat").val());
+                if (player.playerNumber === 1) {
+                    chatOuput = snapshot.child("chat").val();
+                    chatOuput += "<p class='text-secondary'>p1: " + chatText + "</p>";
+                    database.ref().update({
+                        chat: chatOuput
+                    });
+                } else if (player.playerNumber === 2) {
+                    chatOuput = snapshot.child("chat").val(); 
+                    chatOuput += "<p class='text-success'>p2: " + chatText + "</p>";
+                    database.ref().update({
+                        chat: chatOuput
+                    });
+                }
+            } else {
+                if (player.playerNumber === 1) {
+                    chatOuput = "<p class='text-secondary'>p1: " + chatText + "</p>";
+                    database.ref().update({
+                        chat: chatOuput
+                    });
+                } else if (player.playerNumber === 2) {
+                    chatOuput = "<p class='text-success'>p2: " + chatText + "</p>";
+                    database.ref().update({
+                        chat: chatOuput
+                    });
+                }
+            }
+        });
+    
 
     }
 
@@ -476,7 +518,22 @@ $(document).ready(function() {
             console.log("447 Kill database: ", kill)
             database.ref().child("player").remove();
             database.ref().child("turn").remove();
+            database.ref().child("chat").remove();
         }
+    });
+
+    $("#playerChat").on("click", function() {
+        event.preventDefault();
+        
+        console.log("507 chat clicked");
+
+        let chatText = $("#chatBox").val();
+        console.log("chatText: " + chatText);
+        if (chatText !== "") {
+            addToChat(chatText);
+        }
+        $("#chatBox").val("");
+
     });
 
 }) // $(document).ready(function(){})
