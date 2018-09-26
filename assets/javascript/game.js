@@ -21,7 +21,8 @@ $(document).ready(function() {
 
     database.ref().on("value", function(snapshot) {
         console.log(snapshot.child());
-    
+        
+
         if(snapshot.child("player").exists()) {
             console.log("26 ", snapshot.val().player);
 
@@ -30,23 +31,27 @@ $(document).ready(function() {
             database.ref().once('value', function(snapshot) {
                 console.log("30 ", snapshot.child("player").numChildren());
                 snapshot.child("player").forEach(function(childSnapshot) {
-                childKey = childSnapshot.key;
-                childData = childSnapshot.val();
+                    childKey = childSnapshot.key;
+                    childData = childSnapshot.val();
                
-                console.log("32 childKey", childKey);
-                console.log("33 ", childData);
-                console.log("34 playerName: ", childData.playerName);
+                    console.log("32 childKey", childKey);
+                    console.log("33 ", childData);
+                    console.log("38 playerName: ", childData.playerName);
+                    if (typeof childData.playerNumber === "undefined" ) {
+                        console.log("43 No ChildData", typeof childData.playerNumber);
+                    } else if (childData.playerNumber === 1) {
+                        console.log("45: Update Player One Name")
+                        $("#playerOneName").text(childData.playerName.toUpperCase());
+                        $("#p1Wins").text(childData.wins.toString());
+                        $("#p1Losses").text(childData.losses.toString());
+                    }  else if (childData.playerNumber === 2) {
+                        $("#playerTwoName").text(childData.playerName.toUpperCase());
+                        $("#p2Wins").text(childData.wins.toString());
+                        $("#p2Losses").text(childData.losses.toString());
+                    }
                 });
             });
 
-            if (typeof childData.playerNumber === undefined ) {
-                console.log("40 No ChildData", typeof childData.playerNumber);
-            } else if (childData.playerNumber === 1) {
-                $("#playerOneName").text(childData.playerName);
-            } else 
-            if (childData.playerNumber === 2) {
-                $("#playerTwoName").text(childData.playerName);
-            }
             var myArray = database.ref().child("player").orderByChild('playerNumber');
             console.log("40 ", myArray);
             console.log("41 ", typeof myArray);
@@ -60,6 +65,7 @@ $(document).ready(function() {
         } else {
             whoseTurn = 0;
         }
+
 
         if (whoseTurn === 1) {
             console.log("55 Turn 1");
@@ -136,14 +142,14 @@ $(document).ready(function() {
     }
 
     function updatePlayerWins (pNumber){
-        console.log("131 pNumber: ", pNumber);
+        console.log("131 Update Player Wins, PlayerNumber: ", pNumber);
         let playerObj = JSON.parse(JSON.stringify(getPlayerByNumber(pNumber)));
         playerObj.wins++;
         updatePlayer(playerObj);
     }
     
     function updatePlayerLosses (pNumber) {
-        console.log(pNumber);
+        console.log("152 Update Player Wins, PlayerNumber: ", pNumber);
         let playerObj = JSON.parse(JSON.stringify(getPlayerByNumber(pNumber)));
         playerObj.losses++;
         updatePlayer(playerObj);
@@ -161,14 +167,23 @@ $(document).ready(function() {
 
     function getPlayerOneToken(){
         console.log("108 getPlayerOneToken");
+        $("#game-status").text("Player One to choose");
+        if (player.playerNumber === 1) {
+            $(".p1Item").removeClass("invisible");
+        }
     }
 
     function getPlayerTwoToken(){
         console.log("112 getplayertwotokey");
+        $("#game-status").text("Player Two to choose");
+        if (player.playerNumber === 2) {
+            $(".p2Item").removeClass("invisible");
+        }
     }
     function sortie () {
         var playerOneChoice;
         var playerTwoChoice;
+        let gameStatus = "";
         // Get choices: 
         database.ref().once('value', function(snapshot){
             if( snapshot.child("player").exists()) {
@@ -195,40 +210,52 @@ $(document).ready(function() {
         // Here is RPS logic:
         
         // This logic determines the outcome of the game (win/loss/tie), and increments the appropriate number
-        if (typeof playerOneChoice === "undefined" || typeof playerTwoChoice === "undefined") {
+        if ((typeof playerOneChoice !== "undefined") && (typeof playerTwoChoice !== "undefined")) {
             console.log("199 playerOneChoice: ", playerOneChoice);
             console.log("199 playerTwoChoice: ", playerTwoChoice);
-
-        } else if ((playerOneChoice === "r") && (playerTwoChoice === "s")) {
-            updatePlayerWins(1);
-            updatePlayerLosses(2);
-            $("#game-status").text("Player One Wins!")
-        } else if ((playerOneChoice === "r") && (playerTwoChoice === "p")) {
-            updatePlayerWins(2);
-            updatePlayerLosses(1);
-            $("#game-status").text("Player Two Wins!");
-        } else if ((playerOneChoice === "s") && (playerTwoChoice === "r")) {
-            updatePlayerWins(2);
-            updatePlayerLosses(1);
-            $("#game-status").text("Player Two Wins!");
-        } else if ((playerOneChoice === "s") && (playerTwoChoice === "p")) {
-            updatePlayerWins(1);
-            updatePlayerLosses(2);
-            $("#game-status").text("Player One Wins!");
-        } else if ((playerOneChoice === "p") && (playerTwoChoice === "r")) {
-            updatePlayerWins(1);
-            updatePlayerLosses(2);
-            $("#game-status").text("Player One Wins!!");
-        } else if ((playerOneChoice === "p") && (playerTwoChoice === "s")) {
-            updatePlayerWins(2);
-            updatePlayerLosses(1);
-            $("#game-status").text("Player Two Wins");
-        } else if (playerOneChoice === playerTwoChoice) {
-            $("#game-status").text("Players Tie!!");   
+            winner = 0;
+            losser = 0;
+            if ((playerOneChoice === "r") && (playerTwoChoice === "s")) {
+                winner = 1;
+                losser = 2;
+                gameStatus = "Player One wins with Rock!";
+            } else if ((playerOneChoice === "r") && (playerTwoChoice === "p")) {
+                winner = 2;
+                losser = 1;
+                gameStatus = "Player Two wins with Paper!";
+            } else if ((playerOneChoice === "s") && (playerTwoChoice === "r")) {
+                winner = 2;
+                losser = 1;
+                gameStatus = "Player Two wins with Rock!";
+            } else if ((playerOneChoice === "s") && (playerTwoChoice === "p")) {
+                winner = 1;
+                losser = 2;
+                gameStatus = "Player One wins with Scissors!";
+            } else if ((playerOneChoice === "p") && (playerTwoChoice === "r")) {
+                winner = 1;
+                losser = 2;
+                gameStatus = "Player One wins with Paper!!";
+            } else if ((playerOneChoice === "p") && (playerTwoChoice === "s")) {
+                winner = 2;
+                losser = 1;
+                gameStatus = "Player Two wins with Scissors";
+            } else if (playerOneChoice === playerTwoChoice) {
+                gameStatus = "Players Tie!!";   
+            }
+            
+            $("#game-state").text(gameStatus);
+            $("#game-state").removeClass("invisible");
+            if (winner > 0 && losser > 0) {
+                updatePlayerWins(winner);
+                updatePlayerLosses(losser);
+            }
+            let timer = setTimeout(function(){
+                $("#game-state").addClass("invisible");
+                database.ref().update({
+                    turn: 1
+                })
+            }, 2000);
         }
-        database.ref().update({
-            turn: 1
-        })
         
             
     }
@@ -354,25 +381,26 @@ $(document).ready(function() {
         let txtPlayerName = $("#player-name").val();
         // let txtPlayerTwo = $("#player2-name").val();
         
+        $("#player-name").val("");
         // Test to see if PlayerOneName is empty before updating the database and localstorage
         if((txtPlayerName !== "") && currPlyerLoaded < 2 ) {
             
             player.playerNumber = currPlyerLoaded + 1;
             
-            writeNewPlayer(txtPlayerName, 0, 0, player.playerNumber); 
+            writeNewPlayer(txtPlayerName.toUpperCase(), 0, 0, player.playerNumber); 
             if (player.playerNumber === 2) {
-                $("#playerTwoName").text(txtPlayerName);
+                $("#playerTwoName").text(txtPlayerName.toUpperCase());
 
                 database.ref().update({
                     turn: 1
                 });
                 
             } else {
-                $("#playerOneName").text(txtPlayerName);
+                $("#playerOneName").text(txtPlayerName.toUpperCase());
             }
         }
         console.log("132 player Number: ", player.playerNumber);
-
+        $("#PlayerRegistration").addClass("invisible");
     });
 
 
@@ -414,10 +442,12 @@ $(document).ready(function() {
         var updates = {};
 
         if (player.playerNumber === 1) {
+            $(".p1Item").addClass("invisible");
             database.ref().update({
                 turn: 2
             });
         } else if (player.playerNumber === 2){
+            $(".p2Item").addClass("invisible");
             database.ref().update({
                 turn: 3
             });
@@ -428,6 +458,25 @@ $(document).ready(function() {
         firebase.database().ref().update(updates);   
 
 
+    });
+
+    $(".item").hover(
+        function () {
+            $(this).addClass("bg-info text-white");
+        }, function () {
+            $(this).removeClass("bg-info text-white");
+        }
+     )
+
+    $("#dbKill").on("click", function(){
+        console.log("DB Kill!!!")
+        let kill = confirm("Are you sure??");
+        console.log("448 confirm Kill=", kill);
+        if (kill = true) {
+            console.log("447 Kill database: ", kill)
+            database.ref().child("player").remove();
+            database.ref().child("turn").remove();
+        }
     });
 
 }) // $(document).ready(function(){})

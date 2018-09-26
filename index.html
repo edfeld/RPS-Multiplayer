@@ -20,6 +20,7 @@
           <h1>RPS Multiplayer Game</h1>
           <i class="fas fa-gamepad"></i>
       </div> -->
+      <span id="dbKill" class="border border-light float-left text-white" >DBE</span>
       <div class="container">
         <div class="jumbotron mx-0">
           <div class="container">
@@ -34,7 +35,7 @@
         </div>
         <div class="row justify-content-center">
               <!-- Player registration-->
-              <div class="mb-2 text-center">
+              <div id="PlayerRegistration" class="mb-2 text-center">
                   <form class="form-inline">
                       <div class="form-group mb-2">
                         <label for="player-name mr-2">Player Name</label>
@@ -45,39 +46,35 @@
                       </div>
                     </form>
               </div>
-              <!-- <form class="form-inline">
-                  <div class="form-group mb-2">
-                    <label for="staticEmail2" class="sr-only">Email</label>
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com">
-                  </div>
-                  <div class="form-group mx-sm-3 mb-2">
-                    <label for="inputPassword2" class="sr-only">Password</label>
-                    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
-                </form> -->
-            
         </div>
+        <!-- Player one div-->
         <div class="row">
-          
           <div id="player-one" class="col-md-4 bg-white mx-3">
-            <div>Player One Name: <span id="playerOneName" class="text-warning"></span></div>
-            <div class="item" id="P1Rock" select="r">Rock</div>
-            <div class="item" id="P1Paper" select="p">Paper</div>
-            <div class="item" id="P1Scissors" select="s">Scissors</div>
+            <div><h3>Player One: <span id="playerOneName" class="text-warning"></span></h3></div>
+            <div class="item p1Item invisible" id="P1Rock" select="r">Rock</div>
+            <div class="item p1Item invisible" id="P1Paper" select="p">Paper</div>
+            <div class="item p1Item invisible" id="P1Scissors" select="s">Scissors</div>
+          <div class="container bg-light">
+            <h3>Wins: <span id="p1Wins">0</span></h3>
+            <h3>Losses: <span id="p1Losses">0</span></h3>
+          </Div>
             
           </div>
-          <!-- game status div-->
-          <div id="game-data"class="col-md-3  bg-white mx-3 border border-dark rounded"><p>Game Status</p>
+          <!-- Game Status div-->
+          <div id="game-data"class="col-md-3  bg-white mx-3 border border-dark rounded text-center"><h3>Game Status</h3>
+          <div id="game-state" class="bg-danger text-white invisible"></div>
           <div id="game-status" class="text-center"></div>
           </div>
-          <!-- Player two div -->
+          <!-- Player Two div -->
           <div id="player-two" class="col-md-4 bg-white ml-3">
-              <div>Player Two Name: <span id="playerTwoName" class="text-warning"></span></div>
-              <div class="item" id="P2Rock" select="r">Rock</div>
-              <div class="item" id="P2Paper" select="p">Paper</div>
-              <div class="item" id="P2Scissors" select="s">Scissors</div>
-            
+              <div><h3>Player Two: <span id="playerTwoName" class="text-warning"></span></h3></div>
+              <div class="item p2Item invisible" id="P2Rock" select="r">Rock</div>
+              <div class="item p2Item invisible" id="P2Paper" select="p">Paper</div>
+              <div class="item p2Item invisible" id="P2Scissors" select="s">Scissors</div>
+              <div class="container bg-light">
+                <h3>Wins: <span id="p2Wins">0</span></h3>
+                <h3>Losses: <span id="p2Losses">0</span></h3>
+              </Div>
           </div>
         </div>
 
