@@ -21,12 +21,6 @@
         <div class="jumbotron mx-0">
           <div class="container">
             <h1 class="display-3 text-center">RPS Multiplayer Game</h1>
-            <!-- <p class="lead">Jumbo helper text</p> -->
-            <!-- <hr class="my-2"> -->
-            <!-- <p>More info</p> -->
-            <!-- <p class="lead"> -->
-              <!-- <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
-            </p> -->
           </div>
         </div>
         <div class="row justify-content-center clearfix">
@@ -34,7 +28,7 @@
               <div id="PlayerRegistration" class="mb-2 text-center">
                   <form class="form-inline">
                       <div class="form-group mb-2">
-                        <label for="player-name mr-2">Player Name</label>
+                        <label for="player-name">Player Name</label>
                         <input class="ml-3 form-control" id="player-name" type="text">
                       </div>
                       <div class="form-group mx-sm-3 mb-2">
@@ -47,9 +41,9 @@
         <div class="row">
           <div id="player-one" class="col-md-4 bg-white mx-3">
             <div><h3>Player One: <span id="playerOneName" class="text-warning"></span></h3></div>
-            <div class="item p1Item invisible" id="P1Rock" select="r">Rock</div>
-            <div class="item p1Item invisible" id="P1Paper" select="p">Paper</div>
-            <div class="item p1Item invisible" id="P1Scissors" select="s">Scissors</div>
+            <div class="item p1Item invisible" id="P1Rock" selectItem="r">Rock</div>
+            <div class="item p1Item invisible" id="P1Paper" selectItem="p">Paper</div>
+            <div class="item p1Item invisible" id="P1Scissors" selectItem="s">Scissors</div>
           <div class="container bg-light">
             <h3>Wins: <span id="p1Wins">0</span></h3>
             <h3>Losses: <span id="p1Losses">0</span></h3>
@@ -57,16 +51,16 @@
             
           </div>
           <!-- Game Status div-->
-          <div id="game-data"class="col-md-3 bg-white mx-3 border border-dark rounded text-center"><h3>Game Status</h3>
+          <div id="game-data" class="col-md-3 bg-white mx-3 border border-dark rounded text-center"><h3>Game Status</h3>
           <div id="game-state" class="bg-danger text-white invisible"></div>
           <div id="game-status" class="text-center"></div>
           </div>
           <!-- Player Two div -->
           <div id="player-two" class="col-md-4 bg-white ml-3">
               <div><h3>Player Two: <span id="playerTwoName" class="text-warning"></span></h3></div>
-              <div class="item p2Item invisible" id="P2Rock" select="r">Rock</div>
-              <div class="item p2Item invisible" id="P2Paper" select="p">Paper</div>
-              <div class="item p2Item invisible" id="P2Scissors" select="s">Scissors</div>
+              <div class="item p2Item invisible" id="P2Rock" selectItem="r">Rock</div>
+              <div class="item p2Item invisible" id="P2Paper" selectItem="p">Paper</div>
+              <div class="item p2Item invisible" id="P2Scissors" selectItem="s">Scissors</div>
               <div class="container bg-light">
                 <h3>Wins: <span id="p2Wins">0</span></h3>
                 <h3>Losses: <span id="p2Losses">0</span></h3>
@@ -80,10 +74,10 @@
                     <form class="form-inline">
                         <div class="form-group my-2">
                           <label for="chatBox">Chat</label>
-                          <input class="ml-3 form-control" id="chatBox" width="100px" type="text">
+                          <input class="ml-3 form-control" id="chatBox" type="text">
                         </div>
                         <div class="form-group mx-sm-3 my-2">
-                          <button class="btn btn-primary" id="playerChat" type="send">Submit</button>
+                          <button class="btn btn-primary" id="playerChat">Submit</button>
                         </div>
                       </form>
                 </div>    

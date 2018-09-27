@@ -30,7 +30,6 @@ $(document).ready(function() {
 
     database.ref().on("value", function(snapshot) {
         console.log(snapshot.child());
-        
 
         if(snapshot.child("player").exists()) {
             console.log("26 ", snapshot.val().player);
@@ -91,14 +90,9 @@ $(document).ready(function() {
             var time = setTimeout(() => {
                 sortie();
             }, 2000);
-            // sortie();
+            
         }
 
-
-        // if(snapshot.child("player").exists() && snapshot.child("playerTwoName").exists()) {
-        //     console.log("30 PlayerOneName", snapshot.val().playerOneName);
-        //     console.log("31 PlayerTwoName", snapshot.val().playerTwoName);
-        // }
 
     }, function(errorObject) {
         console.log("The read failed: " + errorObject.code);
@@ -163,9 +157,6 @@ $(document).ready(function() {
         playerObj.losses++;
         updatePlayer(playerObj);
     }
-
-    
-
     let player = {
         playerName: "",
         wins: 0,
@@ -264,11 +255,8 @@ $(document).ready(function() {
                     turn: 1
                 })
             }, 2000);
-        }
-        
-            
+        }  
     }
-
 
     function updatePlayer(playerObj) {
         console.log("228 playerObj: ", playerObj);
@@ -283,11 +271,10 @@ $(document).ready(function() {
         var updates = {};
         updates['/player/' + playerObj.key] = playerData;
         
-        // database.ref().child('player').push(updates);
         return firebase.database().ref().update(updates);
 
-
     }
+
     function writeNewPlayer(username, wins, losses, playerNumber) {
         // a player entry
         var playerData = {
@@ -340,8 +327,6 @@ $(document).ready(function() {
                 }
             }
         });
-    
-
     }
 
     var stopwatch = {
@@ -415,7 +400,6 @@ $(document).ready(function() {
         console.log("95 button press")
         // Prevent form from submitting
         event.preventDefault();
-
         
         let currPlyerLoaded = PlayersLoaded();
         console.log("174 players loaded: ", currPlyerLoaded);
@@ -445,33 +429,25 @@ $(document).ready(function() {
         $("#PlayerRegistration").addClass("invisible");
     });
 
-
-    // $(window).onbeforeunload(function() {
-    //     alert('Handler for .unload() called.');
-    // });
-
     // Select Rock, Paper, Scissors item
     $(".item").on("click", function() {
         console.log("318 onclick item")
         console.log("319 PlayerNumber: ", player.playerNumber);
-        var selectionItem = $(this).attr("select");
+        var selectionItem = $(this).attr("selectItem");
 
         var playerObject = JSON.parse(JSON.stringify(getPlayerByNumber(player.playerNumber)));
 
-        var query = database.ref().child("player")
-                        .orderByChild("playerNumber")
-                        .equalTo(1)
-                        .limitToFirst(1);
-        console.log("302 query ", query);
-        // console.log("303 query.key ", query.val().key);
-        // console.log("304 query[1].key", query[1].key);
-        // console.log("query.val().key", query.val().key);
+        // var query = database.ref().child("player")
+        //                 .orderByChild("playerNumber")
+        //                 .equalTo(1)
+        //                 .limitToFirst(1);
+        // console.log("302 query ", query);
                         
-        var newPlayerKey = database.ref().child('player')
-                                    .orderByChild("playerNumber")
-                                    .equalTo("1")
-                                    .limitToFirst(1);
-        // console.log("395 newPlayerKey:", newPlayerKey.val());                                    
+        // var newPlayerKey = database.ref().child('player')
+        //                             .orderByChild("playerNumber")
+        //                             .equalTo("1")
+        //                             .limitToFirst(1);
+
         console.log("287 playerObject: ", playerObject);
         var playerData = {
             choice: selectionItem,
@@ -480,7 +456,7 @@ $(document).ready(function() {
             playerNumber: playerObject.playerNumber,
             wins: playerObject.wins
         }; 
-        // let childKey = localStorage.getItem("playerKey");
+        
         var updates = {};
 
         if (player.playerNumber === 1) {
@@ -497,9 +473,7 @@ $(document).ready(function() {
         updates['/player/' + playerObject.key] = playerData;
         
         // database.ref().child('player').push(updates);
-        firebase.database().ref().update(updates);   
-
-
+        firebase.database().ref().update(updates);
     });
 
     $(".item").hover(
@@ -522,6 +496,7 @@ $(document).ready(function() {
         }
     });
 
+    // Add chat text to the chat
     $("#playerChat").on("click", function() {
         event.preventDefault();
         
